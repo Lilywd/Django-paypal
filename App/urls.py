@@ -4,8 +4,7 @@ from .import views
 
 urlpatterns =[
     path('checkout', views.checkout, name='checkout'),
-    path('paypal/', include("paypal.standard.ipn.urls")),
-    path('payment-success/', payment_success_view, name="success"),
-    path('payment-failed/', payment_failed_view, name="failed"),
+    path('payment-success/', views.payment_success, name="payment-success"),
+    path('payment-failed/', views.payment_failed, name="payment-failed"),
   
 ] 

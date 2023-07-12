@@ -1,3 +1,4 @@
+import uuid
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -10,24 +11,19 @@ def checkout(request):
         'business': settings.PAYPAL_RECEIVER_EMAIL,
         'amount': '100',	
         'item_name': 'Item_Name_xyz',
-        'invoice': 'Test Payment Invoice',
+        'invoice': str(uuid.uuid4()),
         'currency_code': 'USD',
-        "notify_url":'http://{}{}'.format(host,reverse('paypal-ipn')),
-        # "return": 'http://{}{}'.format(host,reverse('payment-success')),
-        # "cancel_return": 'http://{}{}'.format(host,reverse('payment-failed')),
-#       
-        
+        'notify_url':f'http://{host}{reverse("paypal-ipn")}',
+        'return': f'http://{host}{reverse("payment-success")}',
+        'cancel_return': f'http://{host}{reverse("payment-failed")}',
     }
     form = PayPalPaymentsForm(initial=paypal_dict)
-    return render(request, 'App/index.html', {'form': form})
-
-@csrf_exempt
-def payment_success_view(request):
-    context=request.POST
-    return render(request, 'App/success.html')
+    return render(request, 'App/checkout.html', {'form': form})
 
 
-@csrf_exempt
-def payment_failed_view(request):
-    context=request.POST
-    return render(request, 'App/failed.html')
+def payment_success(request):
+    return redirect('success')
+
+
+def payment_failed(request):
+      return redirect('failed')
