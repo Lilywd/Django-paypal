@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-fk*$lu#yfkkg*37ab(wfzobdg=+75(xc=!b9m-r0m208(1hymw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -128,3 +128,4 @@ PAYPAL_RECEIVER_EMAIL='maasaimerchant01@gmail.com'
 
 # change when going live
 PAYPAL_TEST = True
+
